@@ -1,26 +1,30 @@
-import ftplib
 import time
+import paramiko
+ 
+HOST = "172.20.87.62" # 接続先サーバーのホスト名
+PORT = 22 #使用ポート
+USERNAME = "izumin" # サーバーのユーザー名
+PASSWORD = "mikuruka3" # サーバーのログインパスワード
+upload_src_path = "outputs/test.jpg" # アップロードするファイルパス
+upload_dst_path = "/Applications/XAMPP/xamppfiles/htdocs/phone_serch/out_img/test.jpg" # アップロード先のファイルパス
+ 
+def main(local_file, remote_file):
+    try:
+        client = paramiko.SSHClient()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        client.connect(HOST, port=PORT, username=USERNAME, password=PASSWORD)
+        sftp = client.open_sftp()
+        sftp.put(local_file, remote_file)
+ 
+    except Exception as e:
+        print(e)
+ 
+    finally:
+        sftp.close()
+        client.close()
 
-def ftp_upload(hostname, username, password, upload_src_path, upload_dst_path):
-    # FTP接続・アップロード
-    ftp = ftplib.FTP(hostname)
-    ftp.set_pasv("true")
-    ftp.login(username, password)
-    fp = open(upload_src_path, 'rb')
-    ftp.storbinary(upload_dst_path ,fp)
-
-    # 終了処理
-    ftp.close()
-    fp.close()
-
-
-hostname = "127.0.0.1" # 接続先サーバーのホスト名
-upload_src_path = "test.jpg" # アップロードするファイルパス
-upload_dst_path = "STOR phone_serch/out_img/test.jpg" # アップロード先のファイルパス
-username = "root" # サーバーのユーザー名
-password = "root" # サーバーのログインパスワード
 interval = 3
 
 while True:
-    ftp_upload(hostname, username, password, upload_src_path, upload_dst_path)
+    main(upload_src_path,upload_dst_path)
     time.sleep(interval)
