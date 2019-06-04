@@ -63,10 +63,10 @@ def write(x, img):
         img = np.asarray(img)
         cv2.imwrite('outputs/' + 'test.jpg', img)
         # テキストファイル（tensor.txt）に携帯の座標を書き込み
-        outputFile = 'outputs/tensor.txt'
+        # outputFile = 'outputs/tensor.txt'
 
-        with open(outputFile,'w',newline="\n") as fo:
-            fo.write(c3)
+        # with open(outputFile,'w',newline="\n") as fo:
+        #     fo.write(c3)
         return img
 
 def arg_parse():
