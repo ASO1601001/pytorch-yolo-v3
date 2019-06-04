@@ -1,7 +1,7 @@
 import time
 import paramiko
  
-HOST = "192.168.0.102" # 接続先サーバーのホスト名
+HOST = "172.20.86.13" # 接続先サーバーのホスト名
 PORT = 22 #使用ポート
 USERNAME = "izumin" # サーバーのユーザー名
 PASSWORD = "mikuruka3" # サーバーのログインパスワード
